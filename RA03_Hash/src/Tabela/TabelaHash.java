@@ -89,10 +89,12 @@ public class TabelaHash {
     public int contaColisao() {
         int colisao = 0;
         for (int i = 0; i < tamanho; i++) {
-            Node atual = tabela[i].getInicio();
-            while (atual != null && atual.getProx() != null) {
-                colisao++;
-                atual = atual.getProx();
+            if (tabela[i] != null) {
+                Node atual = tabela[i].getInicio();
+                while (atual != null && atual.getProx() != null) {
+                    colisao++;
+                    atual = atual.getProx();
+                }
             }
         }
         return colisao;

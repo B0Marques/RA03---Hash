@@ -4,35 +4,31 @@ import Tabela.GerarAleatorio;
 import Tabela.TabelaHash;
 
 public class TabelaDob {
-    public static TabelaHash[] maindob(String[] args) {
-        int[] tamTabela = {200, 400, 600, 800, 1000};
-        int[] qtdDados = {10000, 20000, 30000, 40000, 50000};
+    public static TabelaHash[][] maindob(String[] args) {
+        int[] tamTabela = {250, 500, 1000, 5000, 10000};
+        int[] qtdDados = {50000, 100000, 250000, 500000, 1000000};
 
-        TabelaHash[] tabelas = new TabelaHash[5];
+        TabelaHash[][] tabelas = new TabelaHash[5][5];
 
-        for (int tam : tamTabela) {
-            for (int dado : qtdDados) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 long start = System.currentTimeMillis();
-                TabelaHash tabela = new TabelaHash(tam);
+                TabelaHash tabela = new TabelaHash(tamTabela[i]);
 
-                for (int i = 0; i < dado; i++) {
+                for (int k = 0; k < qtdDados[j]; k++) {
                     int numAleatorio = GerarAleatorio.gerar();
                     tabela.inserir(numAleatorio, 3);
                 }
-                for (int j = 0; j < (tamTabela.length); j++) {
-                    if (tamTabela[j] == tam ) {
-                        tabelas[j] = tabela;
-                        break;
-                    }
-                }
+
+                tabelas[i][j] = tabela;
+
                 long end = System.currentTimeMillis();
 
-                long colisoes = tabela.contaColisao();
-                System.out.println("Tamanho (Divisão): " + tam + " Quantidade de dados: " + dado);
+                long colisoes = tabelas[i][j].contaColisao();
+                System.out.println("Tamanho (Dobramento): " + tamTabela[i] + " Quantidade de dados: " + qtdDados[j]);
                 System.out.println("Colisões: " + colisoes);
-                System.out.println("Tempo de execução: "+ (end - start));
+                System.out.println("Tempo de execução: " + (end - start));
             }
-
         }
         return tabelas;
     }
